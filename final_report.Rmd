@@ -1,8 +1,12 @@
 ---
-title: "EnvSys_final"
+title: "Final Report"
+subtitle: "Environmental System Analysis"
 author: "VajiraLasantha"
 date: "10/12/2021"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -91,7 +95,7 @@ With the extremely small p-value, null hypothesis can be rejected. There is a si
 
 Hair and eye colour and sex of 592 students are recorded the `HairEyeColor` dataset from R *`datasets`* package.
 
-```{r dataset summary}
+```{r summary}
 summary(HairEyeColor)
 ```
 
@@ -133,7 +137,7 @@ There are strong negative associations between
 
 Data is from `cars` dataset. It has two variables, speed (mph) and stopping distance (ft).
 
-```{r dataset summary}
+```{r summary of data}
 summary(cars)
 ```
 
@@ -168,7 +172,7 @@ A multiple regression model is fitted to this data.
 
 **4.1 Multiple regression analysis**
 
-```{r dataset summary}
+```{r Longley dataset summary}
 summary(longley)
 ```
 
@@ -246,3 +250,57 @@ Factor Mapping
 ```{r Factor mapping}
 plot(rfa$loadings)
 ```
+
+4.6 Path Analysis
+
+Relationships described in the following figure in expected to exist among the variables in `longley` dataset.
+
+![](images/dia1.PNG "Path analysis model")
+
+```{r Path analysis }
+shp.model <- 'Employed~Population+Unemployed+Armed.Forces+GNP
+GNP~GNP.deflator
+GNP.deflator~Year
+Population~Year
+Unemployed~Population
+Armed.Forces~Unemployed'
+library(lavaan)
+shp.fit <- sem(shp.model, data=longley)
+summary(shp.fit, standardized=TRUE, rsquare=TRUE, fit.measures=TRUE)
+```
+
+Comparative Fit Index (CFI) is 0.772
+
+Akaike (AIC) is 621.571
+
+RMSEA is 0.648
+
+Modification indices of the model are investigated for further improve the model.
+
+```{r modification of the model}
+modificationindices(shp.fit)
+```
+
+Two new paths, GNP\~Population and Armed.Forces\~GNP.deflation are added to the model as suggested by the high modification indices.
+
+![Modified model](images/dia2.PNG "Modified model")
+
+```{r Path analysis - modified}
+shp.model <- 'Employed~Population+Unemployed+Armed.Forces+GNP
+GNP~GNP.deflator+Population
+GNP.deflator~Year
+Population~Year
+Unemployed~Population
+Armed.Forces~Unemployed+GNP.deflator'
+library(lavaan)
+shp.fit <- sem(shp.model, data=longley)
+summary(shp.fit, standardized=TRUE, rsquare=TRUE, fit.measures=TRUE)
+```
+
+Comparative Fit Index (CFI) is 0.843
+
+Akaike (AIC) is 598.411
+
+RMSEA is 0.589
+
+Shown by the increased fit and reduced AIC and RMSEA, the model has been improved by the modifications.
