@@ -4,9 +4,9 @@ subtitle: "Environmental System Analysis"
 author: "VajiraLasantha"
 date: "10/12/2021"
 output:
+  word_document: default
   html_document: default
   pdf_document: default
-  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -283,7 +283,7 @@ modificationindices(shp.fit)
 
 Two new paths, GNP\~Population and Armed.Forces\~GNP.deflation are added to the model as suggested by the high modification indices.
 
-![Modified model](images/dia2.PNG "Modified model")
+![Modified model](images/dia2-01.PNG "Modified model")
 
 ```{r Path analysis - modified}
 shp.model <- 'Employed~Population+Unemployed+Armed.Forces+GNP
