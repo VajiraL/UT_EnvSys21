@@ -168,17 +168,17 @@ Independent variable: Number of employed persons in USA for the year
 
 Dependent variables:
 
-•	Year
+• Year
 
-•	Population - Non-institutionalized above 14-year-old population
+• Population - Non-institutionalized above 14-year-old population
 
-•	Unemployed - Number of unemployed
+• Unemployed - Number of unemployed
 
-•	GNP -- Gross National Product
+• GNP -- Gross National Product
 
-•	GNP.deflator -- Price deflator centered on year 1954
+• GNP.deflator -- Price deflator centered on year 1954
 
-•	Armed.Forces -- Number of people in armed forces
+• Armed.Forces -- Number of people in armed forces
 
 A multiple regression model is fitted to this data
 
@@ -257,8 +257,7 @@ rfa <- factanal(x=longley, factors = 2, rotation = 'promax', scores = 'Bartlett'
 rfa
 ```
 
-All variables are well represented in Factor 1. Variables that increase annually i.e., GNP, GNP
-deflator, Population, Year and Employed have the largest values. Factor 2 mainly consists of Unemployment and Armed forces.
+All variables are well represented in Factor 1. Variables that increase annually i.e., GNP, GNP deflator, Population, Year and Employed have the largest values. Factor 2 mainly consists of Unemployment and Armed forces.
 
 **Factor Mapping**
 
@@ -298,7 +297,7 @@ modificationindices(shp.fit)
 
 Two new paths, GNP\~Population and Armed.Forces\~GNP.deflation are added to the model as suggested by the high modification indices.
 
-![Modified model](images/dia2-01.PNG "Modified model")
+![Modified model](images/dia2-02.PNG "Modified model")
 
 ```{r Path analysis - modified}
 shp.model <- 'Employed~Population+Unemployed+Armed.Forces+GNP
@@ -320,6 +319,6 @@ RMSEA is 0.589
 
 Shown by the increased fit and reduced AIC and RMSEA, the model has been improved by the modifications.
 
-==================================
+============================================================
 
 Github repository <https://github.com/VajiraL/UT_EnvSys21>
