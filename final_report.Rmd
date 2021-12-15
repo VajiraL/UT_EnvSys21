@@ -1,11 +1,11 @@
 ---
 title: "Final Report"
 subtitle: "Environmental System Analysis"
-author: "VajiraLasantha"
+author: "Vajira Lasantha"
 date: "10/12/2021"
 output:
-  word_document: default
   html_document: default
+  word_document: default
   pdf_document: default
 ---
 
@@ -13,13 +13,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Environmental System Analysis
-
-### Autumn 2021
-
-### Final Report
-
-Exercises in this report use base datasets bundled with R in *`datasets`* package.
+Exercises in this report use the base datasets bundled with R in *`datasets`* package.
 
 ### 1. Influence of feed type on the weight of chickens
 
@@ -53,7 +47,7 @@ Alternative hypothesis: There is a significant difference in weight between chic
 
 Null Hypothesis: There is no significant difference in weight.
 
-First, subset the data for Soybean and Sunflower from the original `chickwts` dataset
+First, subset the data for Soybean and Sunflower from the original `chickwts` dataset.
 
 ```{r}
 chick2 <- chickwts[chickwts$feed=='soybean' | chickwts$feed=='sunflower', ]
@@ -99,7 +93,7 @@ Hair and eye colour and sex of 592 students are recorded the `HairEyeColor` data
 summary(HairEyeColor)
 ```
 
-Data are in seperate tables by sexes. They are combined to a single table.
+Data are in separate tables by sexes. They are combined to a single table.
 
 ```{r create a single table}
 h <- margin.table(HairEyeColor, margin = c(1,2))
@@ -164,11 +158,29 @@ SR <- lm(cars$speed~cars$dist)
 summary(SR)
 ```
 
+Linear regression model gives R^2^ value of 0.65.
+
 ### 4. Employment and economic indicators
 
 `Longley` dataset presents 7 variables from 1947 to 1962 that can be used for predicting the number of employed persons in the USA.
 
-A multiple regression model is fitted to this data.
+Independent variable: Number of employed persons in USA for the year
+
+Dependent variables:
+
+•	Year
+
+•	Population - Non-institutionalized above 14-year-old population
+
+•	Unemployed - Number of unemployed
+
+•	GNP -- Gross National Product
+
+•	GNP.deflator -- Price deflator centered on year 1954
+
+•	Armed.Forces -- Number of people in armed forces
+
+A multiple regression model is fitted to this data
 
 **4.1 Multiple regression analysis**
 
@@ -200,6 +212,8 @@ Some variables should be removed to reduce the multicolliniarity.
 
 **4.3 Step-wise method**
 
+Stepwise method of multiple regression is used for selecting a model with reduced multicollinearity.
+
 ```{r stepwise method}
 library(MASS)
 stp_mr <- stepAIC(mlr,direction = 'both')
@@ -210,7 +224,7 @@ Best model is selected. Employment is best predicted by GNP, Unemployment, Armed
 
 **4.4 Principal Component Analysis**
 
-Principal component analysis is used on the same data, to reduce dimentionality.
+Principal component analysis is used on the same data, to reduce dimensionality.
 
 ```{r PCA}
 rpca = prcomp(x=longley, scale=T)
@@ -243,15 +257,16 @@ rfa <- factanal(x=longley, factors = 2, rotation = 'promax', scores = 'Bartlett'
 rfa
 ```
 
-All variables are present in Factor 1. Variables that increase annually i.e, GNP,GNP deflator, Population, Year and Employed have the largest values. Only four variables form the factor 2. Unemployment and Armed forces have the largest magnitudes.
+All variables are well represented in Factor 1. Variables that increase annually i.e., GNP, GNP
+deflator, Population, Year and Employed have the largest values. Factor 2 mainly consists of Unemployment and Armed forces.
 
-Factor Mapping
+**Factor Mapping**
 
 ```{r Factor mapping}
 plot(rfa$loadings)
 ```
 
-4.6 Path Analysis
+**4.6 Path Analysis**
 
 Relationships described in the following figure in expected to exist among the variables in `longley` dataset.
 
@@ -304,3 +319,7 @@ Akaike (AIC) is 598.411
 RMSEA is 0.589
 
 Shown by the increased fit and reduced AIC and RMSEA, the model has been improved by the modifications.
+
+==================================
+
+Github repository <https://github.com/VajiraL/UT_EnvSys21>
